@@ -6,10 +6,17 @@ public class Main {
     Scanner scan = new Scanner(System.in);
     ArrayList<Account> accList = new ArrayList<>();
     ArrayList<Product> List = new ArrayList<>();
+    ArrayList<Product> buyList = new ArrayList<>();
 
     public Main() {
         Account admin = new Account("admin", "", "", "admin123", 0);
         accList.add(admin);
+        Food newFood = new Food("Susu milo [F]", 8800, "22 Desember 2022");
+        List.add(newFood);
+        Cloth newCloth = new Cloth("Jaket anime [C]", 187500, "XL");
+        List.add(newCloth);
+        Technology newTech = new Technology("Headset Logitech [T]", 780000, "G231 Prodigy");
+        List.add(newTech);
         while (true) {
             System.out.println("1. Login ");
             System.out.println("2. Register ");
@@ -30,8 +37,9 @@ public class Main {
                     register();
                     break;
                 default:
+                    System.out.print("Pilihan tidak tersedia!");
+                    scan.nextLine();
                     clearConsole();
-                    System.out.println("Pilihan tidak tersedia!");
             }
         }
     }
@@ -226,7 +234,8 @@ public class Main {
             clearConsole();
             switch (choice) {
                 case 1:
-                    //buyProduct();
+                    buyProduct();
+                    clearConsole();
                     break;
                 case 2:
                     //purchaseHistory();
@@ -244,6 +253,52 @@ public class Main {
                 default:
                     System.out.println("Pilihan tidak tersedia!");
             }
+        }
+    }
+
+    void buyProduct() {
+        while (true) {
+            int i = 1;
+            System.out.println(">>> Product <<<");
+            for (Product product : List) {
+                System.out.print(i + ". " + product.name + " - Rp" + product.price + " - ");
+                if (product instanceof Food) {
+                    System.out.println("Expire date: " + ((Food) product).date);
+                } else if (product instanceof Cloth) {
+                    System.out.println("Size: " + ((Cloth) product).size);
+                } else if (product instanceof Technology) {
+                    System.out.println("Version: " + ((Technology) product).version);
+                }
+                i++;
+            }
+            System.out.print(">> ");
+            int choice = scan.nextInt();
+            scan.nextLine();
+            if (choice < 1 || choice >= i) {
+                System.out.print("Pilihan tidak tersedia!");
+                scan.nextLine();
+            } else {
+                buyList.add(List.get(choice - 1));
+                while(true) {
+                    System.out.println("1. Buy more ?");
+                    System.out.println("2. Checkout");
+                    System.out.print(">> ");
+                    choice = scan.nextInt();
+                    scan.nextLine();
+                    if (choice == 1) {
+                        break;
+                    } else if (choice == 2) {
+                        clearConsole();
+                        //checkout();
+                        return;
+                    } else {
+                        System.out.print("Pilihan tidak tersedia!");
+                        scan.nextLine();
+                        clearConsole();
+                    }
+                }
+            }
+            clearConsole();
         }
     }
 
