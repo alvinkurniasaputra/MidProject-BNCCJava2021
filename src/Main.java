@@ -63,7 +63,7 @@ public class Main {
                             menuAdmin();
                             return;
                         }
-                        menu();
+                        menu(acc);
                         return;
                     }
                 }
@@ -219,7 +219,7 @@ public class Main {
         clearConsole();
     }
 
-    void menu() {
+    void menu(Account acc) {
         while (true) {
             System.out.println(">>> Menu <<<");
             System.out.println("1. Beli produk");
@@ -241,10 +241,12 @@ public class Main {
                     //purchaseHistory();
                     break;
                 case 3:
-                    //addMoney();
+                    addMoney(acc);
+                    clearConsole();
                     break;
                 case 4:
-                    //checkMoney();
+                    checkMoney(acc);
+                    clearConsole();
                     break;
                 case 5:
                     return;
@@ -300,6 +302,26 @@ public class Main {
             }
             clearConsole();
         }
+    }
+
+    void addMoney(Account acc) {
+        int total;
+        System.out.print("Masukan nominal uang yang ingin ditambah: ");
+        total = scan.nextInt();
+        scan.nextLine();
+        if (total < 0) {
+            System.out.print("Nominal uang tidak valid. \n\n(tekan enter untuk kembali ke menu)");
+        } else {
+            acc.setMoney(total);
+            System.out.print("Uang berhasil ditambahkan. \n\n(tekan enter untuk kembali ke menu)");
+        }
+        scan.nextLine();
+    }
+
+    void checkMoney(Account acc) {
+        System.out.println("Jumlah uang anda: Rp" + acc.getMoney());
+        System.out.print("\n(tekan enter untuk kembali ke menu)");
+        scan.nextLine();
     }
 
     void clearConsole() {
