@@ -5,8 +5,11 @@ public class Main {
 
     Scanner scan = new Scanner(System.in);
     ArrayList<Account> accList = new ArrayList<>();
+    ArrayList<Product> List = new ArrayList<>();
 
     public Main() {
+        Account admin = new Account("admin", "", "", "admin123", 0);
+        accList.add(admin);
         while (true) {
             System.out.println("1. Login ");
             System.out.println("2. Register ");
@@ -29,7 +32,6 @@ public class Main {
                 default:
                     clearConsole();
                     System.out.println("Pilihan tidak tersedia!");
-
             }
         }
     }
@@ -49,6 +51,10 @@ public class Main {
                     if (password.equals(acc.getPassword())) {
                         clearConsole();
                         System.out.println("Login successful!");
+                        if (username.equals("admin") && password.equals("admin123")) {
+                            menuAdmin();
+                            return;
+                        }
                         menu();
                         return;
                     }
@@ -105,6 +111,103 @@ public class Main {
 
         Account newAcc = new Account(username, fullname, email, password, 1000);
         accList.add(newAcc);
+        clearConsole();
+    }
+
+    void menuAdmin() {
+        while (true) {
+            System.out.println(">>> Tambah Produk <<<");
+            System.out.println("1. Makanan");
+            System.out.println("2. Pakaian");
+            System.out.println("3. Teknologi");
+            System.out.println("4. Logout");
+            System.out.println("5. Exit");
+            System.out.print(">> ");
+            int choice = scan.nextInt();
+            scan.nextLine();
+            clearConsole();
+            switch (choice) {
+                case 1:
+                    addFood();
+                    break;
+                case 2:
+                    addCloth();
+                    break;
+                case 3:
+                    addTech();
+                    break;
+                case 4:
+                    return;
+                case 5:
+                    System.exit(0);
+                default:
+                    System.out.println("Pilihan tidak tersedia!");
+            }
+        }
+    }
+
+    void addFood() {
+        String nama;
+        int harga;
+        String tanggal;
+        do {
+            System.out.print("Nama produk: ");
+            nama = scan.nextLine();
+        } while (nama.length() > 16 || !nama.endsWith(" [F]"));
+        do {
+            System.out.print("Harga produk: ");
+            harga = scan.nextInt();
+        } while (harga < 1000);
+        harga += harga / 10;
+        scan.nextLine();
+        System.out.print("Tanggal kadaluarsa: ");
+        tanggal = scan.nextLine();
+        Food newFood = new Food(nama, harga, tanggal);
+        List.add(newFood);
+        clearConsole();
+    }
+
+    void addCloth() {
+        String nama;
+        int harga;
+        String size;
+        do {
+            System.out.print("Nama produk: ");
+            nama = scan.nextLine();
+        } while (nama.length() > 16 || !nama.endsWith(" [C]"));
+        do {
+            System.out.print("Harga produk: ");
+            harga = scan.nextInt();
+        } while (harga < 1000);
+        harga += harga / 4;
+        scan.nextLine();
+        do {
+            System.out.print("Size: ");
+            size = scan.nextLine();
+        } while (size.contains("S") || size.contains("M") || size.contains("L") || size.contains("XL"));
+        Cloth newCloth = new Cloth(nama, harga, size);
+        List.add(newCloth);
+        clearConsole();
+    }
+
+    void addTech() {
+        String nama;
+        int harga;
+        String version;
+        do {
+            System.out.print("Nama produk: ");
+            nama = scan.nextLine();
+        } while (nama.length() > 16 || !nama.endsWith(" [C]"));
+        do {
+            System.out.print("Harga produk: ");
+            harga = scan.nextInt();
+        } while (harga < 1000);
+        harga += (harga * 3) / 10;
+        scan.nextLine();
+        System.out.print("Version: ");
+        version = scan.nextLine();
+        Technology newTech = new Technology(nama, harga, version);
+        List.add(newTech);
         clearConsole();
     }
 
