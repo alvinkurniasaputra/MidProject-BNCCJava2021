@@ -4,6 +4,7 @@ public class Account {
     private final String email;
     private final String password;
     private int money;
+    private int structId;
 
     public Account(String username, String fullName, String email, String password, int money) {
         this.username = username;
@@ -35,6 +36,14 @@ public class Account {
 
     public void setMoney(int money) {
         this.money += money;
+    }
+
+    public int getStructId() {
+        return structId;
+    }
+
+    public void setStructId() {
+        this.structId++;
     }
 
 }

@@ -234,7 +234,7 @@ public class Main {
             clearConsole();
             switch (choice) {
                 case 1:
-                    buyProduct();
+                    buyProduct(acc);
                     clearConsole();
                     break;
                 case 2:
@@ -258,7 +258,7 @@ public class Main {
         }
     }
 
-    void buyProduct() {
+    void buyProduct(Account acc) {
         while (true) {
             int i = 1;
             System.out.println(">>> Product <<<");
@@ -291,7 +291,7 @@ public class Main {
                         break;
                     } else if (choice == 2) {
                         clearConsole();
-                        //checkout();
+                        checkout(acc);
                         return;
                     } else {
                         System.out.print("Pilihan tidak tersedia!");
@@ -302,6 +302,79 @@ public class Main {
             }
             clearConsole();
         }
+    }
+
+    void checkout(Account acc) {
+        int i = 1;
+        int total = 0;
+        while (true) {
+            System.out.println(">>> Checkout <<<");
+            for (Product product : buyList) {
+                System.out.print(i + ". " + product.name + " - Rp" + product.price + " - ");
+                if (product instanceof Food) {
+                    System.out.println("Expire date: " + ((Food) product).date);
+                } else if (product instanceof Cloth) {
+                    System.out.println("Size: " + ((Cloth) product).size);
+                } else if (product instanceof Technology) {
+                    System.out.println("Version: " + ((Technology) product).version);
+                }
+                i++;
+                total += product.price;
+            }
+            System.out.println("Total: Rp" + total);
+            System.out.println("Uang anda: Rp" + acc.getMoney());
+            System.out.println("\n1. Bayar");
+            System.out.println("2. Cancel");
+            System.out.print(">> ");
+            int choice = scan.nextInt();
+            scan.nextLine();
+            if (choice == 1) {
+                if (acc.getMoney() >= total) {
+                    acc.setStructId();
+                    acc.setMoney(- total);
+                    struct(acc,acc.getStructId());
+                    System.out.print("\n(tekan enter untuk kembali ke menu)");
+                    scan.nextLine();
+                } else {
+                    System.out.print("Uang yang anda miliki tidak mencukupi \n(tekan enter untuk kembali ke menu)");
+                    scan.nextLine();
+                }
+                choice = 2;
+            }
+            if (choice == 2) {
+                buyList.clear();
+                break;
+            } else {
+                System.out.print("Pilihan tidak tersedia!");
+                scan.nextLine();
+                clearConsole();
+            }
+        }
+    }
+
+    void struct(Account acc, int n) {
+        clearConsole();
+        int i = 1;
+        int total = 0;
+        System.out.println("Padie Shop");
+        System.out.println("------------------------------------------");
+        System.out.println("ID: #" + n + "\n");
+        for (Product product : buyList) {
+            System.out.println(i + ". " + product.name + " - Rp" + product.price + " - ");
+            if (product instanceof Food) {
+                System.out.println("Expire date: " + ((Food) product).date);
+            } else if (product instanceof Cloth) {
+                System.out.println("Size: " + ((Cloth) product).size);
+            } else if (product instanceof Technology) {
+                System.out.println("Version: " + ((Technology) product).version);
+            }
+            i++;
+            total += product.price;
+        }
+        System.out.println("------------------------------------------");
+        System.out.println("Quantity    : " + (i - 1));
+        System.out.println("Total Price : Rp" + total);
+        System.out.println("------------------------------------------");
     }
 
     void addMoney(Account acc) {
