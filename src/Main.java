@@ -238,7 +238,8 @@ public class Main {
                     clearConsole();
                     break;
                 case 2:
-                    //purchaseHistory();
+                    purchaseHistory(acc);
+                    clearConsole();
                     break;
                 case 3:
                     addMoney(acc);
@@ -259,6 +260,7 @@ public class Main {
     }
 
     void buyProduct(Account acc) {
+        History newHistory = new History();
         while (true) {
             int i = 1;
             System.out.println(">>> Product <<<");
@@ -280,6 +282,7 @@ public class Main {
                 System.out.print("Pilihan tidak tersedia!");
                 scan.nextLine();
             } else {
+                newHistory.setPayment(List.get(choice - 1));
                 buyList.add(List.get(choice - 1));
                 while(true) {
                     System.out.println("1. Buy more ?");
@@ -291,7 +294,7 @@ public class Main {
                         break;
                     } else if (choice == 2) {
                         clearConsole();
-                        checkout(acc);
+                        checkout(acc, newHistory);
                         return;
                     } else {
                         System.out.print("Pilihan tidak tersedia!");
@@ -304,7 +307,7 @@ public class Main {
         }
     }
 
-    void checkout(Account acc) {
+    void checkout(Account acc, History newHistory) {
         int i = 1;
         int total = 0;
         while (true) {
@@ -330,6 +333,7 @@ public class Main {
             scan.nextLine();
             if (choice == 1) {
                 if (acc.getMoney() >= total) {
+                    acc.setHistory(newHistory);
                     acc.setStructId();
                     acc.setMoney(- total);
                     struct(acc,acc.getStructId());
@@ -359,7 +363,7 @@ public class Main {
         System.out.println("Padie Shop");
         System.out.println("------------------------------------------");
         System.out.println("ID: #" + n + "\n");
-        for (Product product : buyList) {
+        for (Product product : acc.getHistory().get(n-1).getPayment()) {
             System.out.println(i + ". " + product.name + " - Rp" + product.price + " - ");
             if (product instanceof Food) {
                 System.out.println("Expire date: " + ((Food) product).date);
@@ -375,6 +379,34 @@ public class Main {
         System.out.println("Quantity    : " + (i - 1));
         System.out.println("Total Price : Rp" + total);
         System.out.println("------------------------------------------");
+    }
+
+    void purchaseHistory(Account acc) {
+        while (true) {
+            System.out.println("1. Lihat riwayat pembelian");
+            System.out.println("2. Kembali");
+            System.out.print(">> ");
+            int choice = scan.nextInt();
+            scan.nextLine();
+            if (choice == 1) {
+                System.out.print("Masukan struct ID: ");
+                int n = scan.nextInt();
+                scan.nextLine();
+                if(n < 1 || n > acc.getStructId()){
+                    System.out.println("Struct ID tidak ditemukan!");
+                }
+                else {
+                    struct(acc, n);
+                }
+                System.out.print("\n(tekan enter untuk kembali)");
+            } else if (choice == 2) {
+                break;
+            } else {
+                System.out.print("Pilihan tidak tersedia!");
+            }
+            scan.nextLine();
+            clearConsole();
+        }
     }
 
     void addMoney(Account acc) {
