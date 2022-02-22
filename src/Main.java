@@ -108,22 +108,38 @@ public class Main {
         String email;
         String password;
         System.out.println(">>> Register <<<");
-        do {
+        while (true) {
             System.out.print("Username: ");
             username = scan.nextLine();
-        } while (username.length() < 3 || username.length() > 16);
-        do {
+            if (username.length() < 3 || username.length() > 16)
+                System.out.println("(≥ 3 karakter dan ≤ 16 karakter)\n");
+            else
+                break;
+        }
+        while (true) {
             System.out.print("Nama panjang: ");
             fullname = scan.nextLine();
-        } while (fullname.length() < 3 || fullname.length() > 16 || !fullname.matches(".*[a-zA-Z0-9].*"));
-        do {
+            if (fullname.length() < 3 || fullname.length() > 16 || !fullname.matches(".*[a-zA-Z0-9].*"))
+                System.out.println("(≥ 3 karakter dan ≤ 16 karakter, tidak boleh ada angka atau karakter spesial (cth:!?,.+-_))\n");
+            else
+                break;
+        }
+        while (true) {
             System.out.print("Email address: ");
             email = scan.nextLine();
-        } while (email.length() < 5 || email.length() > 30 || !email.contains("@") || !(email.endsWith(".com") || email.endsWith(".net")));
-        do {
+            if (email.length() < 5 || email.length() > 30 || !email.contains("@") || !(email.endsWith(".com") || email.endsWith(".net")))
+                System.out.println("(≥ 5 karakter dan ≤ 30 karakter, terdapat karakter '@', diakhiri dengan '.com' atau '.net')\n");
+            else
+                break;
+        }
+        while (true) {
             System.out.print("Password: ");
             password = scan.nextLine();
-        } while (password.length() < 8 || password.length() > 40 || !password.matches(".*[a-zA-Z].*") || !password.matches(".*[0-9].*"));
+            if (password.length() < 8 || password.length() > 40 || !password.matches(".*[a-zA-Z].*") || !password.matches(".*[0-9].*"))
+                System.out.println("(≥ 8 karakter dan ≤ 40, kombinasi huruf dan angka)\n");
+            else
+                break;
+        }
 
         Account newAcc = new Account(username, fullname, email, password, 1000);
         accList.add(newAcc);
