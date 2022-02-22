@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -18,28 +19,35 @@ public class Main {
         Technology newTech = new Technology("Headset Logitech [T]", 780000, "G231 Prodigy");
         List.add(newTech);
         while (true) {
-            System.out.println("1. Login ");
-            System.out.println("2. Register ");
-            System.out.println("3. Exit ");
-            System.out.print(">> ");
-            int choice = scan.nextInt();
-            scan.nextLine();
-            if (choice == 3) {
-                break;
-            }
-            switch (choice) {
-                case 1:
-                    clearConsole();
-                    login();
+            try {
+                System.out.println("1. Login ");
+                System.out.println("2. Register ");
+                System.out.println("3. Exit ");
+                System.out.print(">> ");
+                int choice = scan.nextInt();
+                scan.nextLine();
+                if (choice == 3) {
                     break;
-                case 2:
-                    clearConsole();
-                    register();
-                    break;
-                default:
-                    System.out.print("Pilihan tidak tersedia!");
-                    scan.nextLine();
-                    clearConsole();
+                }
+                switch (choice) {
+                    case 1:
+                        clearConsole();
+                        login();
+                        break;
+                    case 2:
+                        clearConsole();
+                        register();
+                        break;
+                    default:
+                        System.out.print("Pilihan tidak tersedia!");
+                        scan.nextLine();
+                        clearConsole();
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Input harus berupa angka!");
+                scan.nextLine();
+                scan.nextLine();
+                clearConsole();
             }
         }
     }
@@ -124,32 +132,39 @@ public class Main {
 
     void menuAdmin() {
         while (true) {
-            System.out.println(">>> Tambah Produk <<<");
-            System.out.println("1. Makanan");
-            System.out.println("2. Pakaian");
-            System.out.println("3. Teknologi");
-            System.out.println("4. Logout");
-            System.out.println("5. Exit");
-            System.out.print(">> ");
-            int choice = scan.nextInt();
-            scan.nextLine();
-            clearConsole();
-            switch (choice) {
-                case 1:
-                    addFood();
-                    break;
-                case 2:
-                    addCloth();
-                    break;
-                case 3:
-                    addTech();
-                    break;
-                case 4:
-                    return;
-                case 5:
-                    System.exit(0);
-                default:
-                    System.out.println("Pilihan tidak tersedia!");
+            try {
+                System.out.println(">>> Tambah Produk <<<");
+                System.out.println("1. Makanan");
+                System.out.println("2. Pakaian");
+                System.out.println("3. Teknologi");
+                System.out.println("4. Logout");
+                System.out.println("5. Exit");
+                System.out.print(">> ");
+                int choice = scan.nextInt();
+                scan.nextLine();
+                clearConsole();
+                switch (choice) {
+                    case 1:
+                        addFood();
+                        break;
+                    case 2:
+                        addCloth();
+                        break;
+                    case 3:
+                        addTech();
+                        break;
+                    case 4:
+                        return;
+                    case 5:
+                        System.exit(0);
+                    default:
+                        System.out.println("Pilihan tidak tersedia!");
+                }
+            } catch (InputMismatchException E) {
+                System.out.print("Input harus berupa angka!");
+                scan.nextLine();
+                scan.nextLine();
+                clearConsole();
             }
         }
     }
@@ -221,40 +236,47 @@ public class Main {
 
     void menu(Account acc) {
         while (true) {
-            System.out.println(">>> Menu <<<");
-            System.out.println("1. Beli produk");
-            System.out.println("2. History pembelian");
-            System.out.println("3. Tambah uang");
-            System.out.println("4. Cek uang");
-            System.out.println("5. Logout");
-            System.out.println("6. Exit");
-            System.out.print(">> ");
-            int choice = scan.nextInt();
-            scan.nextLine();
-            clearConsole();
-            switch (choice) {
-                case 1:
-                    buyProduct(acc);
-                    clearConsole();
-                    break;
-                case 2:
-                    purchaseHistory(acc);
-                    clearConsole();
-                    break;
-                case 3:
-                    addMoney(acc);
-                    clearConsole();
-                    break;
-                case 4:
-                    checkMoney(acc);
-                    clearConsole();
-                    break;
-                case 5:
-                    return;
-                case 6:
-                    System.exit(0);
-                default:
-                    System.out.println("Pilihan tidak tersedia!");
+            try {
+                System.out.println(">>> Menu <<<");
+                System.out.println("1. Beli produk");
+                System.out.println("2. History pembelian");
+                System.out.println("3. Tambah uang");
+                System.out.println("4. Cek uang");
+                System.out.println("5. Logout");
+                System.out.println("6. Exit");
+                System.out.print(">> ");
+                int choice = scan.nextInt();
+                scan.nextLine();
+                clearConsole();
+                switch (choice) {
+                    case 1:
+                        buyProduct(acc);
+                        clearConsole();
+                        break;
+                    case 2:
+                        purchaseHistory(acc);
+                        clearConsole();
+                        break;
+                    case 3:
+                        addMoney(acc);
+                        clearConsole();
+                        break;
+                    case 4:
+                        checkMoney(acc);
+                        clearConsole();
+                        break;
+                    case 5:
+                        return;
+                    case 6:
+                        System.exit(0);
+                    default:
+                        System.out.println("Pilihan tidak tersedia!");
+                }
+            } catch (InputMismatchException E) {
+                System.out.print("Input harus berupa angka!");
+                scan.nextLine();
+                scan.nextLine();
+                clearConsole();
             }
         }
     }
