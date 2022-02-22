@@ -119,7 +119,7 @@ public class Main {
         while (true) {
             System.out.print("Nama panjang: ");
             fullname = scan.nextLine();
-            if (fullname.length() < 3 || fullname.length() > 16 || !fullname.matches(".*[a-zA-Z0-9].*"))
+            if (fullname.length() < 3 || fullname.length() > 16 || fullname.matches(".*[^a-zA-Z].*"))
                 System.out.println("(≥ 3 karakter dan ≤ 16 karakter, tidak boleh ada angka atau karakter spesial (cth:!?,.+-_))\n");
             else
                 break;
