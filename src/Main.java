@@ -189,14 +189,22 @@ public class Main {
         String nama;
         int harga;
         String tanggal;
-        do {
+        while (true) {
             System.out.print("Nama produk: ");
             nama = scan.nextLine();
-        } while (nama.length() > 16 || !nama.endsWith(" [F]"));
-        do {
+            if (nama.length() > 16 || !nama.endsWith(" [F]"))
+                System.out.println("(≥ 3 karakter dan ≤ 16 karakter, diakhiri dengan \" [F]\")\n");
+            else
+                break;
+        }
+        while (true) {
             System.out.print("Harga produk: ");
             harga = scan.nextInt();
-        } while (harga < 1000);
+            if (harga < 1000)
+                System.out.println("(≥ Rp 1000)\n");
+            else
+                break;
+        }
         harga += harga / 10;
         scan.nextLine();
         System.out.print("Tanggal kadaluarsa: ");
@@ -210,20 +218,32 @@ public class Main {
         String nama;
         int harga;
         String size;
-        do {
+        while (true) {
             System.out.print("Nama produk: ");
             nama = scan.nextLine();
-        } while (nama.length() > 16 || !nama.endsWith(" [C]"));
-        do {
+            if (nama.length() > 16 || !nama.endsWith(" [C]"))
+                System.out.println("(≥ 3 karakter dan ≤ 16 karakter, diakhiri dengan \" [C]\")\n");
+            else
+                break;
+        }
+        while (true) {
             System.out.print("Harga produk: ");
             harga = scan.nextInt();
-        } while (harga < 1000);
+            if (harga < 1000)
+                System.out.println("(≥ Rp 1000)\n");
+            else
+                break;
+        }
         harga += harga / 4;
         scan.nextLine();
-        do {
+        while (true) {
             System.out.print("Size: ");
             size = scan.nextLine();
-        } while (size.contains("S") || size.contains("M") || size.contains("L") || size.contains("XL"));
+            if (size.contains("S") || size.contains("M") || size.contains("L") || size.contains("XL"))
+                System.out.println("(S / M / L / XL)\n");
+            else
+                break;
+        }
         Cloth newCloth = new Cloth(nama, harga, size);
         List.add(newCloth);
         clearConsole();
@@ -233,14 +253,22 @@ public class Main {
         String nama;
         int harga;
         String version;
-        do {
+        while (true) {
             System.out.print("Nama produk: ");
             nama = scan.nextLine();
-        } while (nama.length() > 16 || !nama.endsWith(" [C]"));
-        do {
+            if (nama.length() > 16 || !nama.endsWith(" [C]"))
+                System.out.println("(≥ 3 karakter dan ≤ 16 karakter, diakhiri dengan \" [T]\")\n");
+            else
+                break;
+        }
+        while (true) {
             System.out.print("Harga produk: ");
             harga = scan.nextInt();
-        } while (harga < 1000);
+            if (harga < 1000)
+                System.out.println("(≥ Rp 1000)\n");
+            else
+                break;
+        }
         harga += (harga * 3) / 10;
         scan.nextLine();
         System.out.print("Version: ");
