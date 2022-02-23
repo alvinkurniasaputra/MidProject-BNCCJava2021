@@ -239,7 +239,7 @@ public class Main {
         while (true) {
             System.out.print("Size: ");
             size = scan.nextLine();
-            if (size.contains("S") || size.contains("M") || size.contains("L") || size.contains("XL"))
+            if (!size.matches("[X][L]")  && !size.matches("[SML]"))
                 System.out.println("(S / M / L / XL)\n");
             else
                 break;
@@ -256,7 +256,7 @@ public class Main {
         while (true) {
             System.out.print("Nama produk: ");
             nama = scan.nextLine();
-            if (nama.length() > 16 || !nama.endsWith(" [C]"))
+            if (nama.length() > 16 || !nama.endsWith(" [T]"))
                 System.out.println("(≥ 3 karakter dan ≤ 16 karakter, diakhiri dengan \" [T]\")\n");
             else
                 break;
